@@ -141,7 +141,7 @@ The password is the ELASTICSEARCH_PASSWORD value in the env file.
         false, // should queue (bool, default = false)
     );
 
-    // Delete By Query
+    // Delete by Query
     $items = (new MyModel)->deleteByQuery(
         [
           'bool' => [
@@ -185,12 +185,10 @@ The password is the ELASTICSEARCH_PASSWORD value in the env file.
       'script' // action type
     );
     
-    /**
-     * Action Types;
-     * script: elasticsearch java scripts,
-     * index: upsert document,
-     * create: create document,
-     */
+    // Action Types;
+    // script: elasticsearch java scripts,
+    // index: upsert document,
+    // create: create document,
     
     // Alternate
     BulkApi::chunk(
@@ -200,5 +198,5 @@ The password is the ELASTICSEARCH_PASSWORD value in the env file.
         'user_id' => 2,
         'video_id' => 'dummy1234'
       ],
-      'index'
+      'index' // action type
     );
