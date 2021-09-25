@@ -19,6 +19,9 @@
              ->runInBackground()
              ->withoutOverlapping(1);
 
+##### Run a queue for should actions in supervisor
+    $ php artisan queue:work --queue=elasticsearch
+
 ### Model & Migration
     $ php artisan elasticsearch:model MyModel
 
