@@ -1,0 +1,29 @@
+{
+    "name": "etsetra/elasticsearch",
+    "type": "library",
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "etsetra/library": "^1.0.0",
+        "predis/predis": "^1.1",
+        "elasticsearch/elasticsearch": "^7.14"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Etsetra\\Elasticsearch\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mutlu",
+            "email": "mutlu@etsetra.com"
+        }
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Etsetra\\Elasticsearch\\Providers\\ElasticsearchServiceProvider"
+            ]
+        }
+    }
+}
