@@ -22,6 +22,6 @@ class ElasticsearchServiceProvider extends ServiceProvider
         $this->commands($this->commands);
         $this->publishes([
             __DIR__.'/../../config/elasticsearch.php' => config_path('elasticsearch.php'),
-        ], 'config');
+        ], 'etsetra-elasticsearch-config');
     }
 }
