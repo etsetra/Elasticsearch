@@ -3,15 +3,21 @@
 ### Installation
     composer require etsetra/elasticsearch
 
-1. Create config file
+##### Create config file
 
     $ php artisan vendor:publish --tag="etsetra-elasticsearch-config"
 
-2. Update .env file
+##### Update .env file
 
     <p>ELASTICSEARCH_SERVERS=127.0.0.1:9200,127.0.0.1:9201,127.0.0.1:9202</p>
     <p>ELASTICSEARCH_RETRIES=2</p>
     <p>ELASTICSEARCH_PASSWORD=1234 //This password is unique to you. Used to delete index.</p>
+
+##### Add schedule for bulk actions stack -> App/Console/Kernel.php
+    $schedule->command('elasticsearch:bulk:insert')
+             ->everyMinute()
+             ->runInBackground()
+             ->withoutOverlapping(1);
 
 ### Model & Migration
     $ php artisan elasticsearch:model MyModel
