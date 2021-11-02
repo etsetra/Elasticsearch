@@ -209,3 +209,8 @@ The password is the ELASTICSEARCH_PASSWORD value in the env file.
       ],
       'index' // action type
     );
+
+### Database status (_cat api)
+    use Etsetra\Elasticsearch\Client;
+
+    $query = (new Client)->cat('nodes'); // params: health, indices, nodes
