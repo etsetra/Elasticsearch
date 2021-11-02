@@ -32,4 +32,47 @@ class Client
             ->setLogger($this->logger())
             ->build();
     }
+
+    /**
+     * Elasticsearch Cat Api
+     * 
+     * @param string $module
+     * @param array $params
+     * @return object
+     */
+    public function cat(string $module, array $params = [])
+    {
+        try
+        {
+            $client = self::build();
+
+            switch ($module)
+            {
+                case 'indices':
+                    $params = array_merge([ 'index' => '*', 's' => 'index:desc' ], $params);
+                    $data = $client->cat()->indices($params);
+                break;
+                case 'health':
+                    $params = array_merge([ 's' => 'status:asc' ], $params);
+                    $data = $client->cat()->health($params);
+                break;
+                case 'nodes':
+                    $params = array_merge([ 's' => 'name:asc' ], $params);
+                    $data = $client->cat()->nodes($params);
+                break;
+            }
+
+            return (object) [
+                'success' => 'ok',
+                'data' => $data
+            ];
+        }
+        catch (\Exception $e)
+        {
+            return (object) [
+                'success' => 'failed',
+                'log' => $e->getMessage()
+            ];
+        }
+    }
 }
