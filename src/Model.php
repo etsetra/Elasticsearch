@@ -243,6 +243,77 @@ class Model
         }
     }
 
+    /**
+     * Put index settings
+     * 
+     * @param array $params
+     * @return object
+     */
+    public function putIndexSettings(array $params)
+    {
+        try
+        {
+            return (new Client)->build()->indices()->putSettings(
+                [
+                    'index' => $this->index,
+                    'body' => [
+                        'settings' => $params
+                    ]
+                ]
+            );
+        }
+        catch (\Exception $e)
+        {
+            return $this->modelCatch($e);
+        }
+    }
+
+    /**
+     * Get this index settings
+     * 
+     * @return object
+     */
+    public function getIndexSettings()
+    {
+        try
+        {
+            return (new Client)->build()->indices()->getSettings(
+                [
+                    'index' => $this->name
+                ]
+            );
+        }
+        catch (\Exception $e)
+        {
+            return (object) [
+                'success' => 'failed',
+                'log' => $e->getMessage()
+            ];
+        }
+    }
+
+    /**
+     * Get this index status
+     * 
+     * @param bool $action
+     * @return object
+     */
+    public function indexStatus(bool $action)
+    {
+        try
+        {
+            return (new Client)->build()->indices()->{$action ? 'open' : 'close'}(
+                [
+                    'index' => $this->name
+                ]
+            );
+        }
+        catch (\Exception $e)
+        {
+            return $this->modelCatch($e);
+        }
+    }
+
     ###########################################################
     ######################## UTILITIES ########################
     ##                                                       ##
