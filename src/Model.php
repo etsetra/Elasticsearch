@@ -269,7 +269,7 @@ class Model
     }
 
     /**
-     * Put index settings
+     * Put index mapping
      * 
      * @param array $params
      * @return object
