@@ -36,6 +36,17 @@ You can enter standard elasticsearch mapping parameters into the created migrati
 
 The password is the ELASTICSEARCH_PASSWORD value in the env file.
 
+### Put Mapping
+    use App\Models\MyModel;
+
+    (new MyModel)->putIndexMapping(
+        [
+            'new_column_name' => [
+                'type' => 'keyword'
+            ]
+        ]
+    );
+
 ### Search Document
     use App\Models\MyModel;
 
