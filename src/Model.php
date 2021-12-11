@@ -269,6 +269,34 @@ class Model
     }
 
     /**
+     * Put index settings
+     * 
+     * @param array $params
+     * @return object
+     */
+    public function putIndexMapping(array $params)
+    {
+        try
+        {
+            return (new Client)->build()->indices()->putMapping(
+                [
+                    'index' => $this->index,
+                    'body' => [
+                        '_source' => [
+                            'enabled' => true
+                        ],
+                        'properties' => $params
+                    ]
+                ]
+            );
+        }
+        catch (\Exception $e)
+        {
+            return $this->modelCatch($e);
+        }
+    }
+
+    /**
      * Get this index settings
      * 
      * @return object
