@@ -52,7 +52,11 @@ class Client
             {
                 case 'indices':
                     $params = array_merge([ 'index' => ($prefix ? $prefix.'__*' : '*'), 's' => 'index:desc' ], $params);
-                    $data = $client->cat()->indices($params);
+                    $data = array_map(function($line) use($prefix) {
+                        $line['index'] = str_replace($prefix.'__', '', $line['index']);
+
+                        return $line;
+                    }, $client->cat()->indices($params));
                 break;
                 case 'health':
                     $params = array_merge([ 's' => 'status:asc' ], $params);

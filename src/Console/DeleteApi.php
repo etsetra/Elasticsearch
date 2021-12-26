@@ -40,15 +40,7 @@ class DeleteApi extends Command
      */
     public function handle()
     {
-        $prefix = config('elasticsearch.prefix');
-
-        $client = (new Client)->build();
-        $indices = $client->cat()->indices([ 'index' => $prefix ? $prefix.'__*' : '*', 's' => 'index:desc' ]);
-        $indices = array_map(function($line) use($prefix) {
-            $line['index'] = str_replace($prefix.'__', '', $line['index']);
-
-            return $line;
-        }, $indices);
+        $indices = (new Client)->cat('indices');
 
         $this->table(
             [
@@ -62,10 +54,10 @@ class DeleteApi extends Command
                 'store.size',
                 'pri.store.size',
             ],
-            $indices
+            $indices->data
         );
 
-        $name = $this->anticipate('Please select the index you want to delete', Arr::pluck($indices, 'index'));
+        $name = $this->anticipate('Please select the index you want to delete', Arr::pluck($indices->data, 'index'));
 
         if ($name)
         {
@@ -75,6 +67,9 @@ class DeleteApi extends Command
 
                 if ($password == config('elasticsearch.password'))
                 {
+                    $prefix = config('elasticsearch.prefix');
+                    $client = (new Client)->build();
+
                     try
                     {
                         $response = $client->indices()->delete(
