@@ -76,9 +76,11 @@ class BulkApi extends Command
 	 */
 	public static function chunk(string $index, string $id, array $data, string $action = 'create')
 	{
+        $prefix = config('elasticsearch.prefix');
+
 		$lines[] = [
 			str_replace('script', 'update', $action) => [
-				'_index' => $index,
+				'_index' => $prefix ? $prefix.'__'.$index : $index,
 				'_id' => $id,
 			]
 		];

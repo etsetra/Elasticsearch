@@ -42,6 +42,8 @@ class Client
      */
     public function cat(string $module, array $params = [])
     {
+        $prefix = config('elasticsearch.prefix');
+
         try
         {
             $client = self::build();
@@ -49,7 +51,7 @@ class Client
             switch ($module)
             {
                 case 'indices':
-                    $params = array_merge([ 'index' => '*', 's' => 'index:desc' ], $params);
+                    $params = array_merge([ 'index' => ($prefix ? $prefix.'__*' : '*'), 's' => 'index:desc' ], $params);
                     $data = $client->cat()->indices($params);
                 break;
                 case 'health':

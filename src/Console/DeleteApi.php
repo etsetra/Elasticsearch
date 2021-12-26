@@ -40,8 +40,15 @@ class DeleteApi extends Command
      */
     public function handle()
     {
+        $prefix = config('elasticsearch.prefix');
+
         $client = (new Client)->build();
-        $indices = $client->cat()->indices();
+        $indices = $client->cat()->indices([ 'index' => $prefix ? $prefix.'__*' : '*', 's' => 'index:desc' ]);
+        $indices = array_map(function($line) use($prefix) {
+            $line['index'] = str_replace($prefix.'__', '', $line['index']);
+
+            return $line;
+        }, $indices);
 
         $this->table(
             [
@@ -72,7 +79,7 @@ class DeleteApi extends Command
                     {
                         $response = $client->indices()->delete(
                             [
-                                'index' => $name
+                                'index' => $prefix ? $prefix.'__'.$name : $name
                             ]
                         );
 

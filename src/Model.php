@@ -14,6 +14,9 @@ class Model
     public function __construct()
     {
         $this->shouldQueue = false;
+
+        $this->prefix = config('elasticsearch.prefix');
+        $this->index = $this->prefix ? $this->prefix.'__'.$this->index : $this->index;
     }
 
     /**
@@ -307,7 +310,7 @@ class Model
         {
             return (new Client)->build()->indices()->getSettings(
                 [
-                    'index' => $this->name
+                    'index' => $this->index
                 ]
             );
         }
@@ -332,7 +335,7 @@ class Model
         {
             return (new Client)->build()->indices()->{$action ? 'open' : 'close'}(
                 [
-                    'index' => $this->name
+                    'index' => $this->index
                 ]
             );
         }
