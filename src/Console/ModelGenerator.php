@@ -94,7 +94,7 @@ use Etsetra\\Elasticsearch\\Model;
 
 class $this->class extends Model
 {
-    protected \$index = '$this->index';
+    protected \$index = '".Str::plural($this->index)."';
 }
 ";
     }
