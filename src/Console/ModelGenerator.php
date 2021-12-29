@@ -45,7 +45,7 @@ class ModelGenerator extends Command
     {
         $this->class = Str::ucfirst(Str::camel($this->argument('name')));
         $this->index = Str::slug(Str::kebab($this->class), '_');
-        $this->migration = date('Y_m_d_His').'_create_'.$this->index.'_table';
+        $this->migration = date('Y_m_d_His').'_create_'.Str::plural($this->index).'_table';
 
         /**
          * Create Model
