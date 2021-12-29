@@ -4,6 +4,7 @@ return [
     'servers' => explode(',', env('ELASTICSEARCH_SERVERS', 'localhost:9200')),
     'retries' => env('ELASTICSEARCH_RETRIES', 2),
     'password' => env('ELASTICSEARCH_PASSWORD', '1234'),
+    'prefix' => env('ELASTICSEARCH_PREFIX'),
     'settings' => [
         'mapping' => [
             'total_fields' => [ 'limit' => 5000 ]

@@ -11,7 +11,8 @@
 
     <p>ELASTICSEARCH_SERVERS=127.0.0.1:9200,127.0.0.1:9201,127.0.0.1:9202</p>
     <p>ELASTICSEARCH_RETRIES=2</p>
-    <p>ELASTICSEARCH_PASSWORD=1234 //This password is unique to you. Used to delete index.</p>
+    <p>ELASTICSEARCH_PASSWORD=1234 //This password is unique to you. Used to delete index</p>
+    <p>ELASTICSEARCH_PREFIX=app //prefix of indexes</p>
 
 ### Model & Migration
     $ php artisan elasticsearch:model MyModel
